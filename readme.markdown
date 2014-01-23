@@ -1,4 +1,4 @@
-Carson is a lightweight, "real-time" web interface for [rtorrent]. It doesn't aim to resemble a native, full-fledged UI like µtorrent web ui or rutorrent do. Instead it tries to remain simple while being very flexible and interactive.
+Carson is a lightweight, "real-time" web interface for [rtorrent]. It doesn't aim to resemble a full-fledged native UI similar to what µtorrent web ui or rutorrent do. Instead it tries to remain simple while being very flexible and interactive.
 
 Carson leverages the latest web technologies such as HTML5 Canvas for beautiful download progress rendering and WebSockets for "real-time," persistent updates on the state of downloads. It's written as a lightweight Python [Flask] application serving a simple JSON API to an [Angular.js] front-end.
 
