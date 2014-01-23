@@ -1,0 +1,19 @@
+[uwsgi]
+base = /path/to/carson
+app = carson
+module = %(app)
+callable = app
+
+home = %(base)/env
+pythonpath = %(base)
+chdir = %(base)
+socket = /tmp/uwsgi.sock
+logto = /tmp/uwsgi.log
+
+master = true
+processes = 16
+
+http-websockets = true
+gevent = 100
+pidfile = /tmp/uwsgi.pid
+daemonize = /tmp/uwsgi.log

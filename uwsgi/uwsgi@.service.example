@@ -1,0 +1,16 @@
+[Unit]
+Description=uWSGI service for %i
+After=syslog.target
+
+[Service]
+Type=forking
+User=%I
+PIDFile=/tmp/uwsgi.pid
+
+ExecStart=/path/to/carson/env/bin/uwsgi --ini /path/to/carson/uwsgi/uwsgi.ini
+ExecReload=/bin/kill -HUP $MAINPID
+ExecStop=/bin/kill -QUIT $MAINPID
+
+[Install]
+WantedBy=multi-user.target
+

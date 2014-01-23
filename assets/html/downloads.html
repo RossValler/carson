@@ -1,0 +1,41 @@
+<div class="alert alert-danger announcement" ng-show="announcement.length > 0">
+  {{announcement}}
+</div>
+
+<div class="upload" ng-controller="UploadController" ng-include="templateUrl">
+</div>
+
+<div class="input-group">
+  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+  <!-- typeahead="download.name for download in scoped | downloadFilter:query" -->
+  <input type="text" class="form-control" id="search" autofocus="autofocus" placeholder="Search" autocomplete="off" ng-model="query">
+  <span class="input-group-addon" ng-switch on="res.length">
+    <span class="glyphicon glyphicon-ban-circle" ng-switch-when="0"></span>
+    <span class="badge" ng-switch-default>{{res.length}}</span>
+    </span>
+  </span>
+</div>
+
+<div class="text-center">
+  <div class="btn-group downloads-scope">
+    <button type="button" class="btn btn-info" ng-model="scope" btn-radio="'all'">all</button>
+    <button type="button" class="btn btn-info" ng-model="scope" btn-radio="'mine'">mine</button>
+    <button type="button" class="btn btn-info" ng-model="scope" btn-radio="'locked'">locked</button>
+    <button type="button" class="btn btn-info" ng-model="scope" btn-radio="'expiring'">expiring</button>
+    <button type="button" class="btn btn-info" ng-model="scope" btn-radio="'recent'">recent</button>
+  </div>
+</div>
+
+<ul class="downloads">
+  <li ng-repeat="download in res = (scoped | downloadFilter:query)" class="download {{download.hash}}">
+    <canvas rel="tooltip" class="download-progress state-{{download.state}}" width="25" height="25" ng-circle-progress="download" title="{{download.state}}"></canvas>
+    <a href="download/{{download.hash}}" class="name">{{download.name}}</a>
+    <a href="" ng-click="lock(download)" rel="tooltip" class="lock-container" title="lock">
+      <span class="glyphicon" ng-class="lockImg(download)"></span>
+    </a>
+  </li>
+</ul>
+
+<div class="downloads-none" ng-if="res.length == 0">
+  no results
+</div>

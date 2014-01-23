@@ -1,0 +1,29 @@
+<div class="show-upload" ng-mouseenter="showSlide = true" ng-mouseleave="showSlide = false" title="upload" ng-click="show.section = !show.section">
+  <div class="show-upload-slide" ng-show="showSlide"><span class="glyphicon" ng-class="slideIcon(show.section)"></span></div>
+</div>
+<div class="upload-section" ng-show="show.section">
+  <alert class="upload-failed" ng-repeat="fail in failed" type="'danger'" close="closeAlert($index)"><strong>Upload Failed</strong>: {{fail}}</alert>
+  <div class="inputs">
+    <input id="magnet" name="magnet" type="text" class="form-control" placeholder="Magnet URI" ng-model="magnet.uri">
+    <span class="btn btn-primary btn-file">
+      Files <input id="files" multiple type="file" ng-file-listener="onFileSelect($files)">
+    </span>
+  </div>
+  <div class="file-list" ng-drop-listener="onFileSelect($files)">
+    <div class="download-files list-group">
+      <div class="list-group-item" ng-repeat="file in files">
+        <span class="file-path upload-file">{{file.file.name}}</span>
+
+        <div class="progress progress-striped active" ng-if="isUploading(file)" style="width: 20%; float: right; margin-bottom: 0;">
+          <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{file.progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress[file.index]}}%">
+            <span class="sr-only">{{progress[file.index]}} Complete</span>
+          </div>
+        </div>
+        <button type="button" class="btn btn-danger file-button" ng-click="removeUpload($index)" ng-show="!isUploading(file)">abort</button>
+        <button type="button" class="btn btn-success file-button" ng-click="startUpload($index)" ng-show="!isUploading(file)" style="margin-left: 10px">start</button>
+      </div>
+    </div>
+  </div>
+  <div class="btn btn-info upload-button" ng-click="startAll()">submit</div>
+</div>
+

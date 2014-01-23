@@ -1,0 +1,76 @@
+<form role="form" ng-if="current_user.isAdmin() && editing" id="edit">
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="name" name="name" placeholder="name" ng-model="edit_user.name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="email" name="email" placeholder="email" ng-model="edit_user.email">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="role" name="role" placeholder="role" ng-model="edit_user.role">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <button class="btn btn-danger" ng-click="cancel()">cancel</button>
+      <button class="btn btn-primary pull-right" ng-click="submit()">submit</button>
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped table-bordered users">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th style="text-align:center">email</th>
+      <th style="text-align:center">role</th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="user in users">
+      <td>{{user.name}}</td>
+      <td style="text-align:center">
+        {{user.email}}
+      </td>
+      <td style="text-align:center">
+        {{user.role}}
+      </td>
+      <td style="text-align:center">
+        <button ng-click="edit(user)" class="btn btn-info" title="edit"><span class="glyphicon glyphicon-edit"></span></button>
+      </td>
+      <td style="text-align:center">
+        <button ng-click="destroy(user)" class="btn btn-danger" title="delete"><span class="glyphicon glyphicon-remove"></span></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-striped table-bordered invitations">
+  <thead>
+    <tr>
+      <th>token</th>
+      <th>created</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="invitation in invitations">
+      <td><a href="/register/{{invitation.token}}">{{invitation.token}}</a></td>
+      <td>{{invitation.created_at}}</td>
+      <td style="text-align:center">
+        <button ng-click="destroyInvitation(invitation)" class="btn btn-danger" title="delete"><span class="glyphicon glyphicon-remove"></span></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn btn-success col-sm-12" ng-click="createInvitation()" ng-if="current_user.isAdmin()">add</button>

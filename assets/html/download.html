@@ -1,0 +1,58 @@
+<style type="text/css">
+.interface {
+  padding: 0;
+}
+
+.interface > .content {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+</style>
+<div class="download-header">
+  <h4 style="cursor: pointer" ng-click="metadata = !metadata">{{download.name}}</h4>
+  <div class="download-metadata" ng-show="metadata">
+    <p>{{metadataInfo(download)}}</p>
+    <p style="font-style: normal">{{downloadMessage(download)}}</p>
+  </div>
+</div>
+
+<progressbar ng-show="download.progress < 100" class="download-progress-bar progress-striped active" type="{{progressColor(download)}}" max="100" value="download.progress">
+</progressbar>
+
+<input type="text" class="form-control" id="search" autofocus="autofocus" placeholder="Search" autocomplete="off" ng-model="query" ng-show="search" ng-keyup="hideSearch($event)">
+
+<div class="extracting" ng-show="download.extracting">
+  <div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
+  <div class="extracting-text">extracting</div>
+  <div class="spinner">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
+</div>
+
+<div class="download-files list-group" ng-show="download.extract.length > 0">
+  <div class="extracted-label">extracted</div>
+  <div class="list-group-item file-done" ng-repeat="file in download.extract | orderBy:'path' | filter:query">
+    <a href="/file/{{download.name}}/extract/{{file.path}}" target="_self" class="file-path">{{file.path}}</a>
+    <span class="badge download-complete">{{file.size}}</span>
+  </div>
+</div>
+
+<div class="download-files list-group">
+  <div class="download-files-label" ng-show="download.extract.length > 0">downloaded</div>
+  <div class="list-group-item" ng-repeat="file in download.files | orderBy:'path' | filter:query" ng-switch on="file.progress < 100" ng-class="{'file-done': file.progress == 100}">
+    <span class="file-path" ng-switch-when="true">{{file.path}}</span>
+    <a href="/file/{{file.sendpath}}" class="file-path" target="_self" ng-switch-when="false">{{file.path}}</a>
+    <span class="badge" ng-class="fileBadge(file)">{{sizeOrProgress(file)}}</span>
+  </div>
+</div>
+

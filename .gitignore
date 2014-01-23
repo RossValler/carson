@@ -1,0 +1,5 @@
+*.pyc
+env/
+carson.db
+carson.conf
+uwsgi/uwsgi.ini

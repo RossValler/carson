@@ -1,0 +1,71 @@
+<form role="form" ng-if="user.isAdmin() && editing" id="edit">
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="name" name="name" placeholder="name" ng-model="edit_tracker.name">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="url" name="url" placeholder="url" ng-model="edit_tracker.url">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="category" name="category" placeholder="category" ng-model="edit_tracker.category">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="user" name="user" placeholder="user" ng-model="edit_tracker.user">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <input type="text" class="form-control" id="password" name="password" placeholder="password" ng-model="edit_tracker.password">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group col-sm-12">
+      <button class="btn btn-danger" ng-click="cancel()">cancel</button>
+      <button class="btn btn-primary pull-right" ng-click="submit()">submit</button>
+    </div>
+  </div>
+</form>
+
+<table class="table table-striped table-bordered trackers">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Category</th>
+      <th style="text-align:center">User</th>
+      <th style="text-align:center">Pass</th>
+      <th style="text-align:center" ng-if="user.isAdmin()"></th>
+      <th style="text-align:center" ng-if="user.isAdmin()"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="tracker in trackers">
+      <td><a href="http://anonym.to/?{{tracker.url}}">{{tracker.name}}</a></td>
+      <td>{{tracker.category}}</td>
+      <td style="text-align:center">
+        <button clip-copy="tracker.user" title="copy"><span class="glyphicon glyphicon-paperclip"></span></button>
+      </td>
+      <td style="text-align:center">
+        <button clip-copy="tracker.password" title="copy"><span class="glyphicon glyphicon-paperclip"></span></button>
+      </td>
+      <td style="text-align:center" ng-if="user.isAdmin()">
+        <button ng-click="edit(tracker)" class="btn btn-info" title="edit"><span class="glyphicon glyphicon-edit"></span></button>
+      </td>
+      <td style="text-align:center" ng-if="user.isAdmin()">
+        <button ng-click="destroy(tracker)" class="btn btn-danger" title="delete"><span class="glyphicon glyphicon-remove"></span></button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<button class="btn btn-success col-sm-12" ng-click="add()" ng-if="user.isAdmin()">add</button>

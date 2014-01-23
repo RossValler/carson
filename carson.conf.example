@@ -1,0 +1,16 @@
+[rtorrent]
+
+# the RPC endpoint
+# either unix domain socket path or http URL
+rpc = /path/to/rpc.socket
+
+# the directory where downloads will go
+# this should reflect an .rtorrent.rc setting
+downloads = /path/to/downloads/folder
+
+[carson]
+
+# this key should be set to a secret, random value
+# it should be properly generated and set by $ util.py init
+
+secret_key = replace_me

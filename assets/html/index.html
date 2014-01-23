@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en" ng-app="carson">
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carson</title>
+
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/assets/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body ng-controller="AppController">
+  <!-- nav -->
+  <div class="navbar navbar-default navbar-static-top" role="navigation" ng-hide="isLogin">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+      </div>
+      <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+          <li ng-class="activateNav('downloads')">
+            <a href="/">download</a>
+          </li>
+          <li ng-class="activateNav('browse')">
+            <a href="/browse">browse</a>
+          </li>
+          <li ng-class="activateNav('admin')" ng-if="user.isAdmin()">
+            <a href="/admin">admin</a>
+          </li>
+        </ul>
+        <p class="logout navbar-right navbar-text">
+          signed in as <span class="username">{{user.user().name}}</span>,
+          <a href="" ng-click="logout()">logout</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="container" ng-class="{'interface' : !isLogin}">
+    <div ng-view></div>
+  </div>
+  <script src="/assets/js/upload/angular-file-upload-shim.min.js"></script>
+  <script src="/assets/js/angular.min.js"></script>
+  <script src="/assets/js/angular-route.min.js"></script>
+  <script src="/assets/js/ui-bootstrap-tpls-0.9.0.min.js"></script>
+  <script src="/assets/js/upload/angular-file-upload.js"></script>
+  <script src="/assets/js/ZeroClipboard.min.js"></script>
+  <script src="/assets/js/ngClip.js"></script>
+  <script src="/assets/js/moment.min.js"></script>
+  <script src="/assets/js/carson.js"></script>
+</body>
+</html>
+
+
