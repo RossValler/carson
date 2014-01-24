@@ -110,7 +110,7 @@ def create_download(tdata):
             'state': st,
             'metadata': metadata}
 
-def create_files(path, files):
+def create_files(path, files, multi_file):
     fs = []
 
     for file in files:
@@ -127,7 +127,7 @@ def create_files(path, files):
 
         fs.append(fdata)
 
-    if len(files) == 1:
+    if not multi_file:
         fs[0]['sendpath'] = fs[0]['path']
 
     return fs
@@ -223,6 +223,7 @@ def download(hash):
                     'is_hash_checking',
                     'is_active',
                     'is_open',
+                    'is_multi_file',
                     'get_size_bytes',
                     'get_size_chunks',
                     'get_completed_chunks',
@@ -238,11 +239,11 @@ def download(hash):
                   'get_size_chunks',
                   'get_completed_chunks',
                   'get_size_bytes')
-    fs = create_files(tdata['directory'], fdata)
+    fs = create_files(tdata['directory'], fdata, tdata['multi_file'])
     download['files'] = fs
 
     # only directories are extracted
-    if len(fs) > 1:
+    if tdata['multi_file']:
         base = util.get_conf()['rtorrent']['downloads']
         path = os.path.join(base, tdata['name'])
         extracting = os.path.join(path, '.extracting')
