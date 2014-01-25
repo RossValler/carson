@@ -154,6 +154,7 @@ def auth():
 
     if bcrypt.check_password_hash(digest['password'], password):
         token = token_for_user(name)
+        session.permanent = True
         session['token'] = token
         return json.dumps(get_current_user(token))
     else:
